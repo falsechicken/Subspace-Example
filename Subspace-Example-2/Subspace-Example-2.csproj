@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="Subspace">
       <HintPath>..\..\Subspace\Subspace\bin\Debug\Subspace.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

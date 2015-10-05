@@ -30,6 +30,12 @@ namespace SubspaceExample1
 			 * As mentioned above these can be anything you wish.
 			 */
 			subspaceMessage = new SubspaceMessage(messageChannel, messageCode); 
+
+			/**
+			 * Subscribe this plug-in to receive Subspace messages on channel 0.
+			 * Any plug-in that implements the ISubspaceInterface can subscribe.
+			 */
+			Subspace.SubscribeToChannel(0, this);
 		}
 
 		void FixedUpdate()
@@ -49,8 +55,17 @@ namespace SubspaceExample1
 		 */
 		public void ReceiveMessage(SubspaceMessage _message)
 		{
-			Logger.Log("Received message. Channel " + _message.GetMessageChannel()
-			           + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+			/**
+			 * Use some data in the message. Here we are getting the message code. Which is simply
+			 * any number you would like to use so other plugins know what "type" of message this is
+			 * and do the proper logic. In this case we are using it to see if the message is from the
+			 * second example plug-in.
+			 */
+			if (_message.GetMessageCode() == 2) 
+			{
+				Logger.Log("Received message. Channel " + _message.GetMessageChannel()
+				           + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+			}
 		}
 	}
 }

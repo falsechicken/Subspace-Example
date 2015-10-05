@@ -17,7 +17,9 @@ namespace SubspaceExample2
 
 		public SubspaceExample2 ()
 		{
-			subspaceMessage = new SubspaceMessage(messageChannel, messageCode); 
+			subspaceMessage = new SubspaceMessage(messageChannel, messageCode);
+
+			Subspace.SubscribeToChannel(0, this);
 		}
 
 		void FixedUpdate()
@@ -33,8 +35,10 @@ namespace SubspaceExample2
 
 		public void ReceiveMessage(SubspaceMessage _message)
 		{
-			Logger.Log("Received message. Channel " + _message.GetMessageChannel()
-			           + " Message Code: " + _message.GetMessageCode());
+			if (_message.GetMessageCode() == 1)
+			{
+				Logger.Log("Received message. Channel " + _message.GetMessageChannel() + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+			}
 		}
 	}
 }
