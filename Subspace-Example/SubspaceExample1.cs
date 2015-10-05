@@ -59,7 +59,7 @@ namespace SubspaceExample1
 			 * Use some data in the message. Here we are getting the message code. Which is simply
 			 * any number you would like to use so other plugins know what "type" of message this is
 			 * and do the proper logic. In this case we are using it to see if the message is from the
-			 * second example plug-in.
+			 * second example plug-in to prevent showing our own message as well.
 			 */
 			if (_message.GetMessageCode() == 2) 
 			{
