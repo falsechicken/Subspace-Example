@@ -11,13 +11,13 @@ namespace SubspaceExample2
 
 		private short messageChannel = 0;
 
-		private int messageCode = 2;
+		private string messageTitle = "From_Example_2";
 
 		private int sendDelayCounter;
 
 		public SubspaceExample2 ()
 		{
-			subspaceMessage = new SubspaceMessage(messageChannel, messageCode);
+			subspaceMessage = new SubspaceMessage(messageChannel, messageTitle);
 
 			Subspace.SubscribeToChannel(0, this);
 		}
@@ -35,9 +35,10 @@ namespace SubspaceExample2
 
 		public void ReceiveMessage(SubspaceMessage _message)
 		{
-			if (_message.GetMessageCode() == 1)
+			if (_message.GetMessageTitle().Equals("From_Example_1"))
 			{
-				Logger.Log("Received message. Channel " + _message.GetMessageChannel() + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+				Logger.Log("Received message. Channel " 
+				           + _message.GetMessageChannel() + " | Message Title: " + _message.GetMessageTitle());
 			}
 		}
 	}

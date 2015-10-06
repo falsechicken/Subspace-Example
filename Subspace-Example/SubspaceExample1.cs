@@ -16,20 +16,20 @@ namespace SubspaceExample1
 		private short messageChannel = 0;
 
 		/**
-		 * The message code. Used for quick lookups and can be anything you want
-		 * as long as the other plugin knows how to interpret it.
+		 * The message title. Used so other plug-ins know what "type" of message this is and 
+		 * can be anything you want as long as the other plug-in knows how to interpret it.
 		 */
-		private int messageCode = 1;
+		private string messageTitle = "From_Example_1";
 
 		private int sendDelayCounter; //Simple delay counter to prevent spamming messages.
 
 		public SubspaceExample1 ()
 		{
 			/**
-			 * When creating a message the channel and message code must be provided.
+			 * When creating a message the channel and message title must be provided.
 			 * As mentioned above these can be anything you wish.
 			 */
-			subspaceMessage = new SubspaceMessage(messageChannel, messageCode); 
+			subspaceMessage = new SubspaceMessage(messageChannel, messageTitle); 
 
 			/**
 			 * Subscribe this plug-in to receive Subspace messages on channel 0.
@@ -51,20 +51,20 @@ namespace SubspaceExample1
 
 		/**
 		 * All plug-ins using Subspace must implement this function. It gets called when
-		 * a message is sent along a channel.
+		 * a message is sent along a channel the plug-in is subscribed to.
 		 */
 		public void ReceiveMessage(SubspaceMessage _message)
 		{
 			/**
-			 * Use some data in the message. Here we are getting the message code. Which is simply
-			 * any number you would like to use so other plugins know what "type" of message this is
+			 * Use some data in the message. Here we are getting the message title. Which is simply
+			 * any string you would like to use so other plugins know what "type" of message this is
 			 * and do the proper logic. In this case we are using it to see if the message is from the
 			 * second example plug-in to prevent showing our own message as well.
 			 */
-			if (_message.GetMessageCode() == 2) 
+			if (_message.GetMessageTitle().Equals("From_Example_2")) 
 			{
 				Logger.Log("Received message. Channel " + _message.GetMessageChannel()
-				           + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+				           + " | Message Title: " + _message.GetMessageTitle()); //Log the message info to console.
 			}
 		}
 	}
