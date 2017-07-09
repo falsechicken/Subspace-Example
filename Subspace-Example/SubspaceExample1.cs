@@ -1,51 +1,73 @@
 using System;
+using System.Collections.Generic;
 using Rocket.Core.Plugins;
 using Rocket.Core.Logging;
+using Rocket.Unturned.Player;
+
 using FC.Libs.Subspace;
 
 namespace SubspaceExample1
 {
-	public class SubspaceExample1 : RocketPlugin, ISubspaceInterface //Implement the subspace interface.
+	/**
+	 * Implement the subspace interface.
+	 */
+	public class SubspaceExample1 : RocketPlugin, ISubspaceInterface
 	{
-		private SubspaceMessage subspaceMessage; //The message object to send.
+		/**
+		 * The message object to send.
+		 */
+		private SubspaceMessage subspaceMessage;
 
 		/**
-		 * The channel to send the message to. Plug-ins that are subscribed to that channel will
+		 * The channel to send the message to. Plugins that are subscribed to that channel will
 		 * get the message.
 		 */
-		private short messageChannel = 0;
+		private string messageChannel = "example";
 
 		/**
 		 * The message code. Used for quick lookups and can be anything you want
 		 * as long as the other plugin knows how to interpret it.
 		 */
-		private int messageCode = 1;
+		private string messageCode = "1";
 
-		private int sendDelayCounter; //Simple delay counter to prevent spamming messages.
+		/**
+		 * Simple delay counter to prevent spamming messages.
+		 */
+		private int sendDelayCounter;
 
 		public SubspaceExample1 ()
 		{
 			/**
-			 * When creating a message the channel and message code must be provided.
-			 * As mentioned above these can be anything you wish.
+			 * When creating a message the channel must be provided. Everything else can be "empty".
 			 */
-			subspaceMessage = new SubspaceMessage(messageChannel, messageCode); 
+			subspaceMessage = new SubspaceMessage(messageChannel, messageCode, "MSG_SENT", "SOME ARGUMENT", new List<UnturnedPlayer>()); 
 
 			/**
-			 * Subscribe this plug-in to receive Subspace messages on channel 0.
+			 * Subscribe this plug-in to receive Subspace messages on channel "example".
 			 * Any plug-in that implements the ISubspaceInterface can subscribe.
 			 */
-			Subspace.SubscribeToChannel(0, this);
+			Subspace.SubscribeToChannel(messageChannel, this);
 		}
 
 		void FixedUpdate()
 		{
-			sendDelayCounter++; //Increment delay counter. Just used to prevent spam. Not required.
+			/**
+			 * Increment delay counter. Just used to prevent spam. Not required.
+			 */
+			sendDelayCounter++;
 
 			if (sendDelayCounter > 250)
 			{
-				Subspace.SendSubspaceMessage(subspaceMessage); //Send the message through Subspace.
+				/**
+				 * Send the message through Subspace.
+				 */
+				Subspace.SendSubspaceMessage(subspaceMessage);
+
+				/**
+				 * Reset the delay counter to 0.
+				 */
 				sendDelayCounter = 0;
+
 			}
 		}
 
@@ -53,19 +75,26 @@ namespace SubspaceExample1
 		 * All plug-ins using Subspace must implement this function. It gets called when
 		 * a message is sent along a channel.
 		 */
-		public void ReceiveMessage(SubspaceMessage _message)
+		public Boolean ReceiveMessage(SubspaceMessage _message)
 		{
 			/**
 			 * Use some data in the message. Here we are getting the message code. Which is simply
-			 * any number you would like to use so other plugins know what "type" of message this is
+			 * any string you would like to use so other plugins know what "type" of message this is
 			 * and do the proper logic. In this case we are using it to see if the message is from the
 			 * second example plug-in to prevent showing our own message as well.
 			 */
-			if (_message.GetMessageCode() == 2) 
+			if (_message.GetMessageCode() == "2") 
 			{
 				Logger.Log("Received message. Channel " + _message.GetMessageChannel()
 				           + " Message Code: " + _message.GetMessageCode()); //Log the message info to console.
+			
+				/**
+			 	 * Stop the message from propagating any further through the interfaces subscribed to the channel.
+			 	 */
+				return true; 
 			}
+
+			return false;
 		}
 	}
 }

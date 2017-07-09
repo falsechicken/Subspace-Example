@@ -3,12 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F923EB58-9F98-44FB-AB0B-2AAB19D7B6B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SubspaceExample2</RootNamespace>
     <AssemblyName>Subspace-Example-2</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,27 +31,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\Subspace-Example\Libs\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Rocket.API">
-      <HintPath>..\Subspace-Example\Libs\Rocket.API.dll</HintPath>
-    </Reference>
-    <Reference Include="Rocket.Core">
-      <HintPath>..\Subspace-Example\Libs\Rocket.Core.dll</HintPath>
+    <Reference Include="Subspace">
+      <HintPath>..\..\Subspace\Subspace\bin\Debug\Subspace.dll</HintPath>
     </Reference>
     <Reference Include="Rocket.Unturned">
-      <HintPath>..\Subspace-Example\Libs\Rocket.Unturned.dll</HintPath>
+      <HintPath>..\..\Rocket Libs\Rocket.Unturned.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\Propriatary Libs\Assembly-CSharp-firstpass.dll</HintPath>
+    <Reference Include="Rocket.Core">
+      <HintPath>..\..\Rocket Libs\Rocket.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rocket.API">
+      <HintPath>..\..\Rocket Libs\Rocket.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\Propriatary Libs\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\Propriatary Libs\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Subspace">
-      <HintPath>..\..\Subspace\Subspace\bin\Debug\Subspace.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
